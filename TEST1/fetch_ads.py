@@ -6,14 +6,18 @@ headers = {'Authorization': f'Bearer {TOKEN}'}
 
 params = {
     'q' : 'author : "Mooley" ',
-    'fl' : 'author,title,pubdate,abstract,bibcode',
-    # 'rows' : 10,
+    # 'fl' : '*',
+    'fl' : 'author,title,pubdate,abstract,bibcode,volume,page,pub',
+    'rows' : 50,
     'sort' : 'pubdate desc'
 }
 
 response = requests.get('https://api.adsabs.harvard.edu/v1/search/query', headers=headers, params=params)
 
+
 data=response.json()
+
+
 
 try: 
     papers = data['response']['docs']
@@ -22,16 +26,37 @@ except KeyError:
     print(data)
     exit()
 
-with open('index.html', mode='r',encoding='utf-8') as x:
+with open('template.html', mode='r',encoding='utf-8') as x:
     html_template=x.read()
+
+def short_form(pub):
+    if pub == "The Astrophysical Journal Supplement Series" :
+        return 'APJSS'
+    elif pub == "Monthly Notices of the Royal Astronomical Society" :
+        return 'MNRAS'
+    elif pub== "The Astrophysical Journal" :
+        return 'APJ'
+    else :
+        return pub
 
 edit_html=""
 for paper in papers:
     edit_html += "<div class='paper'>"
     edit_html += f"<h2><a href='https://ui.adsabs.harvard.edu/abs/{paper['bibcode']}' target='_blank'>{paper['title'][0]}</a></h2>"
-    edit_html += f"<p><strong>Authors:</strong> {', '.join(paper['author'])}</p>"
-    edit_html += f"<p><strong>Published:</strong> {paper['pubdate']}</p>"
-    edit_html += f"<p><strong>Abstract:</strong> {paper.get('abstract', 'No abstract available.')}</p>"
+    first_author = paper['author'][0]
+    other_authors = ', '.join(paper['author'][1:])
+    edit_html += f"<p><strong>Author:</strong> {first_author} <span class='more-authors' style='display:none;'>, {other_authors}</span> <a href='#' onclick='this.previousElementSibling.style.display=\"inline\"; this.style.display=\"none\";'>[+more]</a></p>"
+    pub_date = paper['pubdate']
+    pub_date = pub_date[:7]
+    edit_html += f"<p><strong>Published:</strong> {pub_date}</p>"
+    abstract = paper.get('abstract', 'No abstract available.')
+    short_abstract = abstract[:200] + "..." if len(abstract) > 200 else abstract
+    edit_html += f"<p><strong>Abstract:</strong> {short_abstract} <a href='https://ui.adsabs.harvard.edu/abs/{paper['bibcode']}' target='_blank'>[Read more]</a></p>"
+    paper_page = paper.get('page', '  ')
+    # if paper_page != '  ' :
+    #     paper_page = int(paper_page[0])
+    paper_pub = short_form(paper['pub'])
+    edit_html += f"<p><strong>{paper_pub} {paper.get('volume', '  ')} {paper_page}</strong></p>"
     edit_html += "</div><hr>"
 
 new_html=html_template.replace("<!-- PLACEHOLDER_FOR_PUBLICATIONS -->", edit_html)
@@ -39,4 +64,7 @@ new_html=html_template.replace("<!-- PLACEHOLDER_FOR_PUBLICATIONS -->", edit_htm
 with open(file="index.html", mode='w', encoding='utf-8') as a:
     a.write(new_html)
 
-print("values written in the html")
+print("values written in the index.html")
+
+
+
