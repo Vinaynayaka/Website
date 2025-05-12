@@ -1,76 +1,122 @@
+/* General Reset */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
+
+/* Fullscreen Background Video */
 #bg-video {
-    position: fixed ;
+    position: fixed;
     top: 0;
     left: 0;
     min-width: 100%;
     min-height: 100%;
     z-index: -1;
     object-fit: cover;
-    opacity: 1; /* adjust transparency */
+    opacity: 1; /* Adjust to make text more readable */
+    filter: brightness(0.7);
 }
 
-
+/* Page Container */
 .container {
     width: 80%;
     margin: auto;
     padding: 2rem;
-    /* background-color: #ffffff; */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 2rem;
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05); /* very light background over video */
 }
 
-h1 {
+/* Page Title */
+h1, .page-title {
     text-align: center;
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
     margin-bottom: 2rem;
+    border-radius: 8px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 
+/* Paper Card */
 .paper {
+    background-color: rgba(0, 0, 0, 0.4);  /* dark semi-transparent background */
     padding: 1rem;
     border-left: 4px solid #007BFF;
     margin-bottom: 1.5rem;
-    /* background-color: #f0f4ff; */
     border-radius: 6px;
+    transition: all 0.3s ease-in-out;
 }
 
+.paper:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+}
+
+/* Paper Title */
 .paper h2 {
-    color: #0056b3;
+    color: #00aaff;
     font-size: 1.4rem;
     margin-top: 0;
 }
 
+/* Text inside papers */
 .paper p {
-    font-size: 1.2rem;
-    color: white;
-    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #f1f1f1;
+    line-height: 1.7;
 }
 
+/* Highlights like Author, Published, Journal */
 p strong {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: goldenrod;
 }
 
+/* Section divider */
 hr {
     border: none;
     height: 1px;
-    background-color: #ccc;
+    background-color: #555;
     margin: 2rem 0;
 }
 
+/* Links */
 a {
     text-decoration: none;
-    color: #0056b3;
+    color: #1E90FF;
+    transition: color 0.2s;
 }
 
 a:hover {
     text-decoration: underline;
-    color: yellow;
+    color: #FFD700;
+}
+
+/* [+more] link styling */
+.more-authors + a {
+    background-color: #007bff;
+    color: white !important;
+    padding: 2px 6px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    margin-left: 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .paper h2 {
+        font-size: 1.2rem;
+    }
+
+    .paper p {
+        font-size: 1rem;
+    }
 }

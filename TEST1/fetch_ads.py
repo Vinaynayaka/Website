@@ -55,10 +55,10 @@ for paper in papers:
     if abstract != 'No abstract available.':
         short_abstract = abstract[:200] + "..." if len(abstract) > 200 else abstract
         edit_html += f"<p><strong>Abstract:</strong> {short_abstract} <a href='https://ui.adsabs.harvard.edu/abs/{paper['bibcode']}' target='_blank'>[Read more]</a></p>"
-    paper_page = paper.get('page', ['  '])
+    paper_page = paper.get('page', ['NA'])
     paper_page = paper_page[0]
     paper_pub = short_form_pub(paper['pub'])
-    edit_html += f"<p><strong>{paper_pub} {'-'} {paper.get('volume', '  ')} {'-'} {paper_page}</strong></p>"
+    edit_html += f"<p><strong>{paper_pub} {'-'} {paper.get('volume', 'NA')} {'-'} {paper_page}</strong></p>"
     edit_html += "</div><hr>"
 
 new_html=html_template.replace("<!-- PLACEHOLDER_FOR_PUBLICATIONS -->", edit_html)
