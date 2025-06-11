@@ -67,6 +67,3 @@ with open(file="index.html", mode='w', encoding='utf-8') as a:
     a.write(new_html)
 
 print("values written in the index.html")
-
-
-
