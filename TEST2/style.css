@@ -54,60 +54,24 @@ h1, .page-title {
     transition: all 0.3s ease-in-out;
 }
 
-/* .paper:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-4px);
-} */
-
-/* Paper Title */
-.paper h2 {
-    color: #00aaff;
-    font-size: 1.4rem;
-    margin-top: 0;
-}
-
 /* Text inside papers */
 .paper p {
     font-size: 1.1rem;
-    color: #f1f1f1;
+    color: white;
     line-height: 1.7;
 }
 
-/* Highlights like Author, Published, Journal */
-p strong {
-    font-size: 1.2rem;
-    color: goldenrod;
-}
-
-/* Section divider */
-hr {
-    border: none;
-    height: 1px;
-    background-color: #555;
-    margin: 2rem 0;
-}
-
-/* Links */
-/* a {
+a {
     text-decoration: none;
-    color: #1E90FF;
+    color: white;
     transition: color 0.2s;
-} */
+}
 
-/* a:hover {
+a:hover {
     text-decoration: underline;
     color: #FFD700;
-} */
+}
 
-/* [+more] link styling */
-/* .more-authors + a {
-    background-color: #007bff;
-    color: white !important;
-    padding: 2px 6px;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    margin-left: 6px;
-} */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
