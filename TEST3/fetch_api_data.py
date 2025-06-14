@@ -46,7 +46,11 @@ def filter_journal(journal):
     "meeting",
     "proposal",
     "award",
-    "telegram"
+    "telegram",
+    "conference",
+    "software",
+    "aas",
+    "cospar"
     ]
     journal = journal.lower()
     for word in words_to_check:
@@ -64,11 +68,11 @@ for paper in papers:
         first_author = paper['author'][0]
         pub_year = paper['pubdate']
         pub_year = pub_year[:4]
-        edit_html += f"<p> { i }{'.'} &nbsp; {first_author}  et al {pub_year} , {paper['title'][0]} </p>"
+        edit_html += f"<p>{ i }{'.'}{first_author}  et al {pub_year}, <strong>{paper['title'][0]}</strong> </p>"
         paper_page = paper.get('page', ['NA'])
         paper_page = paper_page[0]
         paper_pub = short_form_pub(paper['pub'])
-        edit_html += f"<p> <a href='https://ui.adsabs.harvard.edu/abs/{paper['bibcode']}' >{paper_pub} {','} {paper.get('volume', 'NA')} {','} {paper_page}</a></p>"
+        edit_html += f"<p><a href='https://ui.adsabs.harvard.edu/abs/{paper['bibcode']}'>{paper_pub}{','} {paper.get('volume', 'NA')} {','} {paper_page}</a></p>"
         edit_html += "</div>"
 
 new_html=html_template.replace("<!-- PLACEHOLDER_FOR_PUBLICATIONS -->", edit_html)
